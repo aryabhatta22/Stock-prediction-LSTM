@@ -51,3 +51,17 @@ regressor.add(Dense(units = 1))
 
 regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
 regressor.fit(X_train, y_train, epochs = 100, batch_size = 32)
+
+                                # Part 3 - Prediction & visulaization
+
+inputs = df.iloc[len(df.index) - len(test_set) - 60 :].values
+inputs = inputs.reshape(-1,1)
+inputs = sc.transform(inputs)       # fir_transform is not used since sc is already train for trainig set
+
+X_test = []
+for i in range(60, 246+60):
+    X_test.append(inputs[i-60:i, 0])
+    
+X_test = np.array(X_test)
+
+X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
